@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+    - name: myapp-container
+      image: leifeng.harbor.com/library/busybox:v1
+      command: ['sh', '-c', 'echo This app is running! && sleep 3600'] 
+  initContainers:
+    - name: init-myservice
+      image: leifeng.harbor.com/library/busybox:v1
+      command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;'] 
+    - name: init-mydb
+      image: leifeng.harbor.com/library/busybox:v1
+      command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;'] 
+
