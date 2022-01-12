@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod-volume
+  namespace: default
+spec:
+  containers:
+    - name: test-pod-volume
+      image: leifeng.harbor.com/library/myapp:v1
+      command: ['/bin/sh', '-c', 'cat /etc/config/special.how']
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: special-config
+  restartPolicy: Never
+         

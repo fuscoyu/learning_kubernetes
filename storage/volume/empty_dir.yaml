@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: em
+  namespace: default
+spec:
+  containers:
+    - name: nginx
+      image: leifeng.harbor.com/library/nginx:v1
+      volumeMounts:
+        - name: cache
+          mountPath: /cache
+    - name: busybox
+      image: leifeng.harbor.com/library/busybox:v1
+      command:
+        - /bin/sh
+        - -c
+        - sleep 3000
+      volumeMounts:
+        - name: cache
+          mountPath: /test
+  volumes:
+    - name: cache
+      emptyDir: {}
