@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: preferred-node-affinity
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: myapp
+      image: leifeng.harbor.com/library/myapp:v1
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - node03
+                
