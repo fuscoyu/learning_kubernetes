@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 7
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      nodeSelector:
+        node: nginx
+      containers:
+        - name: nginx
+          image: leifeng.harbor.com/library/myapp:v1
+          ports:
+            - containerPort: 80
